@@ -1,7 +1,7 @@
-#Private Networks
+##Private Networks
 This guide explains how to set up a private network of multiple Geth nodes. An Ethereum network is a private network if the nodes are not connected to the main network. In this context private only means reserved or isolated, rather than protected or secure.
 
-#Links: 
+##Links: 
 https://etherscan.io/address/0x0d8775f648430679a709e98d2b0cb6250d2887ef#code
 
 https://blog.ethereum.org/2015/07/27/final-steps/
@@ -14,12 +14,12 @@ https://wayback.archive-it.org/16516/20210622201930/https://forum.ethereum.org/d
 
 https://geth.ethereum.org/docs/interface/private-network
 
-#Choosing A Network ID
+##Choosing A Network ID
 The network ID is an integer number which isolates Ethereum peer-to-peer networks. Connections between blockchain nodes will occur only if both peers use the same genesis block and network ID. Use the --networkid command line option to set the network ID used by geth.
 
 The main network has ID 1. If you supply your own custom network ID which is different than the main network, your nodes will not connect to other nodes and form a private network. If you’re planning to connect to your private chain on the Internet, it’s best to choose a network ID that isn’t already used. You can find a community-run registry of Ethereum networks at https://chainid.network.
 
-#Choosing A Consensus Algorithm
+##Choosing A Consensus Algorithm
 While the main network uses proof-of-work to secure the blockchain, Geth also supports the the ‘clique’ proof-of-authority consensus algorithm as an alternative for private networks. We strongly recommend ‘clique’ for new private network deployments because it is much less resource intensive than proof-of-work. The clique system is also used for several public Ethereum testnets such as Rinkeby and Görli.
 
 Here are the key differences between the two consensus algorithms available in Geth:
@@ -28,7 +28,7 @@ Ethash consensus, being a proof-of-work algorithm, is a system that allows open 
 
 Clique consensus is a proof-of-authority system where new blocks can be created by authorized ‘signers’ only. The clique consenus protocol is specified in EIP-225. The initial set of authorized signers is configured in the genesis block. Signers can be authorized and de-authorized using a voting mechanism, thus allowing the set of signers to change while the blockchain operates. Clique can be configured to target any block time (within reasonable limits) since it isn’t tied to the difficulty adjustment.
 
-#Creating The Genesis Block
+##Creating The Genesis Block
 Every blockchain starts with the genesis block. When you run Geth with default settings for the first time, it commits the main net genesis to the database. For a private network, you usually want a different genesis block.
 
 The genesis block is configured using the genesis.json file. When creating a genesis block, you need to decide on a few initial parameters for your blockchain:
@@ -36,14 +36,16 @@ The genesis block is configured using the genesis.json file. When creating a gen
 Ethereum platform features enabled at launch (config). Enabling protocol features while the blockchain is running requires scheduling a hard fork.
 Initial block gas limit (gasLimit). Your choice here impacts how much EVM computation can happen within a single block. We recommend using the main Ethereum network as a guideline to find a good amount. The block gas limit can be adjusted after launch using the --miner.gastarget command-line flag.
 Initial allocation of ether (alloc). This determines how much ether is available to the addresses you list in the genesis block. Additional ether can be created through mining as the chain progresses.
-Clique Example
+
+
+##Clique Example
 This is an example of a genesis.json file for a proof-of-authority network. The config section ensures that all known protocol changes are available and configures the ‘clique’ engine to be used for consensus.
 
 Note that the initial signer set must be configured through the extradata field. This field is required for clique to work.
 
 First create the signer account keys using the geth account command (run this command multiple times to create more than one signer key).
 
-geth account new --datadir data
+```geth account new --datadir data```
 Take note of the Ethereum address printed by this command.
 
 To create the initial extradata for your network, collect the signer addresses and encode extradata as the concatenation of 32 zero bytes, all signer addresses, and 65 further zero bytes. In the example below, extradata contains a single initial signer address, 0x7df9a875a174b3bc565e6424a0050ebc1b2d1d82.
@@ -73,7 +75,8 @@ You can use the period configuration option to set the target block time of the 
     "f41c74c9ae680c1aa78f42e5647a62f353b7bdde": { "balance": "400000" }
   }
 }
-Ethash Example
+
+##Ethash Example
 Since ethash is the default consensus algorithm, no additional parameters need to be configured in order to use it. You can influence the initial mining difficulty using the difficulty parameter, but note that the difficulty adjustment algorithm will quickly adapt to the amount of mining resources you deploy on the chain.
 
 {
@@ -96,7 +99,7 @@ Since ethash is the default consensus algorithm, no additional parameters need t
   }
 }```
 
-#Initializing the Geth Database
+##Initializing the Geth Database
 To create a blockchain node that uses this genesis block, run the following command. This imports and sets the canonical genesis block for your chain.
 
 ```geth init --datadir data genesis.json```
@@ -104,7 +107,7 @@ Future runs of geth using this data directory will use the genesis block you hav
 
 ```geth --datadir data --networkid 15```
 
-#Scheduling Hard Forks
+##Scheduling Hard Forks
 As Ethereum protocol development progresses, new Ethereum features become available. To enable these features on your private network, you must schedule a hard fork.
 
 First, choose any future block number where the hard fork will activate. Continuing from the genesis.json example above, let’s assume your network is running and its current block number is 35421. To schedule the ‘Istanbul’ fork, we pick block 40000 as the activation block number and modify our genesis.json file to set it:
@@ -121,7 +124,7 @@ In order to update to the new fork, first ensure that all Geth instances on your
 
 ```geth init --datadir data genesis.json```
 
-#Setting Up Networking
+##Setting Up Networking
 Once your node is initialized to the desired genesis state, it is time to set up the peer-to-peer network. Any node can be used as an entry point. We recommend dedicating a single node as the rendezvous point which all other nodes use to join. This node is called the ‘bootstrap node’.
 
 First, determine the IP address of the machine your bootstrap node will run on. If you are using a cloud service such as Amazon EC2, you’ll find the IP of the virtual machine in the management console. Please also ensure that your firewall configuration allows both UDP and TCP traffic on port 30303.
@@ -132,6 +135,7 @@ The bootstrap node needs to know about its own IP address in order to be able to
 Now extract the ‘node record’ of the bootnode using the JS console.
 
 ```geth attach data/geth.ipc --exec admin.nodeInfo.enr```
+
 This command should print a base64 string such as the following example. Other nodes will use the information contained in the bootstrap node record to connect to your peer-to-peer network.
 
 ```"enr:-Je4QEiMeOxy_h0aweL2DtZmxnUMy-XPQcZllrMt_2V1lzynOwSx7GnjCf1k8BAsZD5dvHOBLuldzLYxpoD5UcqISiwDg2V0aMfGhGlQhqmAgmlkgnY0gmlwhKwQ_gSJc2VjcDI1NmsxoQKX_WLWgDKONsGvxtp9OeSIv2fRoGwu5vMtxfNGdut4cIN0Y3CCdl-DdWRwgnZf"```
@@ -142,7 +146,7 @@ If Internet connectivity is not required or all member nodes connect using well-
 ```geth <other-flags> --netrestrict 172.16.254.0/24```
 With the above setting, Geth will only allow connections from the 172.16.254.0/24 subnet, and will not attempt to connect to other nodes outside of the set IP range.
 
-#Running Member Nodes
+##Running Member Nodes
 Before running a member node, you have to initialize it with the same genesis file as used for the bootstrap node.
 
 With the bootnode operational and externally reachable (you can try telnet <ip> <port> to ensure it’s indeed reachable), you can start more Geth nodes and connect them via the bootstrap node using the --bootnodes flag.
@@ -154,13 +158,13 @@ With the member node running, you can check whether it is connected to the boots
 
 ```geth attach data-2/geth.ipc --exec admin.peers```
 
-  #Clique: Running A Signer
+##Clique: Running A Signer
 To set up Geth for signing blocks in proof-of-authority mode, a signer account must be available. The account must be unlocked to mine blocks. The following command will prompt for the account password, then start signing blocks:
 
 ```geth <other-flags> --unlock 0x7df9a875a174b3bc565e6424a0050ebc1b2d1d82 --mine```
 You can further configure mining by changing the default gas limit blocks converge to (with --miner.gastarget) and the price transactions are accepted at (with --miner.gasprice).
 
-#Ethash: Running A Miner
+##Ethash: Running A Miner
 For proof-of-work in a simple private network, a single CPU miner instance is enough to create a stable stream of blocks at regular intervals. To start a Geth instance for mining, run it with all the usual flags and add the following to configure mining:
 
 ```geth <other-flags> --mine --miner.threads=1 --miner.etherbase=0x0000000000000000000000000000000000000000```
