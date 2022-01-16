@@ -103,11 +103,12 @@ To create a blockchain node that uses this genesis block, run the following comm
 Future runs of geth using this data directory will use the genesis block you have defined.
 
 ```geth --datadir data --networkid 15```
-Scheduling Hard Forks
+
+#Scheduling Hard Forks
 As Ethereum protocol development progresses, new Ethereum features become available. To enable these features on your private network, you must schedule a hard fork.
 
 First, choose any future block number where the hard fork will activate. Continuing from the genesis.json example above, let’s assume your network is running and its current block number is 35421. To schedule the ‘Istanbul’ fork, we pick block 40000 as the activation block number and modify our genesis.json file to set it:
-
+```
 {
   "config": {
     ...
@@ -115,50 +116,52 @@ First, choose any future block number where the hard fork will activate. Continu
     ...
   },
   ...
-}
+}```
 In order to update to the new fork, first ensure that all Geth instances on your private network actually support the Istanbul fork (i.e. ensure you have the latest version of Geth installed). Now shut down all nodes and re-run the init command to enable the new chain configuration:
 
-geth init --datadir data genesis.json
-Setting Up Networking
+```geth init --datadir data genesis.json```
+
+#Setting Up Networking
 Once your node is initialized to the desired genesis state, it is time to set up the peer-to-peer network. Any node can be used as an entry point. We recommend dedicating a single node as the rendezvous point which all other nodes use to join. This node is called the ‘bootstrap node’.
 
 First, determine the IP address of the machine your bootstrap node will run on. If you are using a cloud service such as Amazon EC2, you’ll find the IP of the virtual machine in the management console. Please also ensure that your firewall configuration allows both UDP and TCP traffic on port 30303.
 
 The bootstrap node needs to know about its own IP address in order to be able to relay it others. The IP is set using the --nat flag (insert your own IP instead of the example address below).
 
-geth --datadir data --networkid 15 --nat extip:172.16.254.4
+```geth --datadir data --networkid 15 --nat extip:172.16.254.4```
 Now extract the ‘node record’ of the bootnode using the JS console.
 
-geth attach data/geth.ipc --exec admin.nodeInfo.enr
+```geth attach data/geth.ipc --exec admin.nodeInfo.enr```
 This command should print a base64 string such as the following example. Other nodes will use the information contained in the bootstrap node record to connect to your peer-to-peer network.
 
-"enr:-Je4QEiMeOxy_h0aweL2DtZmxnUMy-XPQcZllrMt_2V1lzynOwSx7GnjCf1k8BAsZD5dvHOBLuldzLYxpoD5UcqISiwDg2V0aMfGhGlQhqmAgmlkgnY0gmlwhKwQ_gSJc2VjcDI1NmsxoQKX_WLWgDKONsGvxtp9OeSIv2fRoGwu5vMtxfNGdut4cIN0Y3CCdl-DdWRwgnZf"
+```"enr:-Je4QEiMeOxy_h0aweL2DtZmxnUMy-XPQcZllrMt_2V1lzynOwSx7GnjCf1k8BAsZD5dvHOBLuldzLYxpoD5UcqISiwDg2V0aMfGhGlQhqmAgmlkgnY0gmlwhKwQ_gSJc2VjcDI1NmsxoQKX_WLWgDKONsGvxtp9OeSIv2fRoGwu5vMtxfNGdut4cIN0Y3CCdl-DdWRwgnZf"```
 Setting up peer-to-peer networking depends on your requirements. If you connect nodes across the Internet, please ensure that your bootnode and all other nodes have public IP addresses assigned, and both TCP and UDP traffic can pass the firewall.
 
 If Internet connectivity is not required or all member nodes connect using well-known IPs, we strongly recommend setting up Geth to restrict peer-to-peer connectivity to an IP subnet. Doing so will further isolate your network and prevents cross-connecting with other blockchain networks in case your nodes are reachable from the Internet. Use the --netrestrict flag to configure a whitelist of IP networks:
 
-geth <other-flags> --netrestrict 172.16.254.0/24
+```geth <other-flags> --netrestrict 172.16.254.0/24```
 With the above setting, Geth will only allow connections from the 172.16.254.0/24 subnet, and will not attempt to connect to other nodes outside of the set IP range.
 
-Running Member Nodes
+#Running Member Nodes
 Before running a member node, you have to initialize it with the same genesis file as used for the bootstrap node.
 
 With the bootnode operational and externally reachable (you can try telnet <ip> <port> to ensure it’s indeed reachable), you can start more Geth nodes and connect them via the bootstrap node using the --bootnodes flag.
 
 To create a member node running on the same machine as the bootstrap node, choose a separate data directory (example: data-2) and listening port (example: 30305):
 
-geth --datadir data-2 --networkid 15 --port 30305 --bootnodes <bootstrap-node-record>
+```geth --datadir data-2 --networkid 15 --port 30305 --bootnodes <bootstrap-node-record>```
 With the member node running, you can check whether it is connected to the bootstrap node or any other node in your network by attaching a console and running admin.peers. It may take up to a few seconds for the nodes to get connected.
 
-geth attach data-2/geth.ipc --exec admin.peers
-Clique: Running A Signer
+```geth attach data-2/geth.ipc --exec admin.peers```
+
+  #Clique: Running A Signer
 To set up Geth for signing blocks in proof-of-authority mode, a signer account must be available. The account must be unlocked to mine blocks. The following command will prompt for the account password, then start signing blocks:
 
-geth <other-flags> --unlock 0x7df9a875a174b3bc565e6424a0050ebc1b2d1d82 --mine
+```geth <other-flags> --unlock 0x7df9a875a174b3bc565e6424a0050ebc1b2d1d82 --mine```
 You can further configure mining by changing the default gas limit blocks converge to (with --miner.gastarget) and the price transactions are accepted at (with --miner.gasprice).
 
-Ethash: Running A Miner
+#Ethash: Running A Miner
 For proof-of-work in a simple private network, a single CPU miner instance is enough to create a stable stream of blocks at regular intervals. To start a Geth instance for mining, run it with all the usual flags and add the following to configure mining:
 
-geth <other-flags> --mine --miner.threads=1 --miner.etherbase=0x0000000000000000000000000000000000000000
+```geth <other-flags> --mine --miner.threads=1 --miner.etherbase=0x0000000000000000000000000000000000000000```
 This will start mining bocks and transactions on a single CPU thread, crediting all block rewards to the account specified by --miner.etherbase.
