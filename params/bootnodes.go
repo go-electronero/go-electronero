@@ -16,11 +16,15 @@
 
 package params
 
-import "github.com/ethereum/go-ethereum/common"
+import "github.com/CryptocurrencyDevelopers/go-ethereum/common"
 
 // MainnetBootnodes are the enode URLs of the P2P bootstrap nodes running on
 // the main Ethereum network.
 var MainnetBootnodes = []string{
+	// Interchained
+	"enode://fb02dcd816918fb872d24c129b92298093ede7e5704b35bb07b87da329e215187bbab78e68f4308b1b585380f4eda01692dc470d02eaff4a69934aa7aa114f96@161.97.121.84:30309",
+	"enode://66ab2b39e74a5369874e8e69924da94d899fb3295798a573bb8c63f8426615a40af21537c921531eab5cd72b035684e0601d3f3a7fdbaab44f6d2dd5ad8e2750@127.0.0.1:30305",
+	"enode://d15e2e755b287fd63c0a5e999d5797cdeb3681fe5662561e9ce6eeab29c6c82d4efcf2cd7a780efa1aff3553c4392a6104f2cf6e5ca0088ebcb645486b9572a4@107.77.215.225:30303",
 	// Ethereum Foundation Go Bootnodes
 	"enode://d860a01f9722d78051619d1e2351aba3f43f943f6f00718d1b9baa4101932a1f5011f16bb2b1bb35db20d6fe28fa0bf09636d26a87d31de9ec6203eeedb1f666@18.138.108.67:30303",   // bootnode-aws-ap-southeast-1-001
 	"enode://22a8232c3abc76a16ae9d6c3b164f98775fe226f0917b0ca871128a74a8e9630b458460865bab457221f1d448dd9791d24c4e5d88786180ac185df813a68d4de@3.209.45.79:30303",     // bootnode-aws-us-east-1-001
@@ -77,6 +81,10 @@ var GoerliBootnodes = []string{
 }
 
 var V5Bootnodes = []string{
+	// Interchained
+	"enode://fb02dcd816918fb872d24c129b92298093ede7e5704b35bb07b87da329e215187bbab78e68f4308b1b585380f4eda01692dc470d02eaff4a69934aa7aa114f96@161.97.121.84:30309",
+	"enode://66ab2b39e74a5369874e8e69924da94d899fb3295798a573bb8c63f8426615a40af21537c921531eab5cd72b035684e0601d3f3a7fdbaab44f6d2dd5ad8e2750@127.0.0.1:30305",
+	"enode://d15e2e755b287fd63c0a5e999d5797cdeb3681fe5662561e9ce6eeab29c6c82d4efcf2cd7a780efa1aff3553c4392a6104f2cf6e5ca0088ebcb645486b9572a4@107.77.215.225:30303",
 	// Teku team's bootnode
 	"enr:-KG4QOtcP9X1FbIMOe17QNMKqDxCpm14jcX5tiOE4_TyMrFqbmhPZHK_ZPG2Gxb1GE2xdtodOfx9-cgvNtxnRyHEmC0ghGV0aDKQ9aX9QgAAAAD__________4JpZIJ2NIJpcIQDE8KdiXNlY3AyNTZrMaEDhpehBDbZjM_L9ek699Y7vhUJ-eAdMyQW_Fil522Y0fODdGNwgiMog3VkcIIjKA",
 	"enr:-KG4QDyytgmE4f7AnvW-ZaUOIi9i79qX4JwjRAiXBZCU65wOfBu-3Nb5I7b_Rmg3KCOcZM_C3y5pg7EBU5XGrcLTduQEhGV0aDKQ9aX9QgAAAAD__________4JpZIJ2NIJpcIQ2_DUbiXNlY3AyNTZrMaEDKnz_-ps3UUOfHWVYaskI5kWYO_vtYMGYCQRAR3gHDouDdGNwgiMog3VkcIIjKA",
