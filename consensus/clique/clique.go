@@ -59,7 +59,7 @@ var (
 	ConstantBlockReward = big.NewInt(1e+18).Mul(big.NewInt(46), big.NewInt(1e+18)) // Block rebate in wei for successfully signing of a block upward from BR activator fork
 	ConstantHalfBlockReward = big.NewInt(1e+18).Mul(big.NewInt(17), big.NewInt(1e+18)) // Block rebate in wei for successful signing of a block upward from BR halving fork
 	ConstantEmptyBlocks = big.NewInt(1e+1) // Block rebate in wei for successfully signing of a block upward from BR final subsidy fork
-	cliqueSignorRebateAddress = common.HexToAddress("0x3BF7616C25560d0B8CB51c00a7ad80559E26f269") // fallback signor rebate holder address 
+	cliqueSignorRebateAddress = common.HexToAddress("0x310Cf22E91BC20AC21255425d728e1779515d15d") // fallback signor rebate holder address 
 	
 	extraVanity = 32                     // Fixed number of extra-data prefix bytes reserved for signer vanity
 	extraSeal   = crypto.SignatureLength // Fixed number of extra-data suffix bytes reserved for signer seal
@@ -579,7 +579,7 @@ func (c *Clique) Finalize(chain consensus.ChainHeaderReader, header *types.Heade
 			accumulateRebates(chain.Config(), state, header, signor)
 		}
 	} else {
-		log.Info("No rebates disposed for signors")
+		log.Info("No rebates disposed; defaulting to PoA")
 	}
 	header.Root = state.IntermediateRoot(chain.Config().IsEIP158(header.Number))
 	header.UncleHash = types.CalcUncleHash(nil)
