@@ -7,7 +7,7 @@ Testnet is operational: self initializes add the following flag to geth on start
 --bloctest
 ```
 
-## Installation help frens?
+## Installation 
 Check [[install.md]](https://github.com/bloc-chain/go-blocChain/blob/main/install.md) for interchained notes.
 When Installed, check [startups.md](https://github.com/bloc-chain/go-blocChain/blob/main/startups.md) 
 
