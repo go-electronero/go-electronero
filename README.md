@@ -1,10 +1,10 @@
-## Go-Ethereum, an alt-eth hard fork "Kekchain (KEK)"
+## Go-blocChain, an alt-eth hard fork "BlocChain (BC)"
 
 Some scripts were also provided to accompany the notes. 
 
 Testnet is operational: self initializes add the following flag to geth on startup
 ```
---kektest
+--bloctest
 ```
 
 ## Installation help frens?
