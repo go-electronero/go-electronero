@@ -1940,8 +1940,12 @@ func MakeGenesis(ctx *cli.Context) *core.Genesis {
 	case ctx.GlobalBool(GoerliFlag.Name):
 		genesis = core.DefaultGoerliGenesisBlock()
 	case ctx.GlobalBool(KekTestFlag.Name):
-		genesis = core.DefaultTestnetGenesisBlock()
+		genesis = core.DefaultKEKTestnetGenesisBlock()
 	case ctx.GlobalBool(KekistanFlag.Name):
+		genesis = core.DefaultKEKGenesisBlock()
+	case ctx.GlobalBool(BlocTestFlag.Name):
+		genesis = core.DefaultTestnetGenesisBlock()
+	case ctx.GlobalBool(BlocNetFlag.Name):
 		genesis = core.DefaultGenesisBlock()
 	case ctx.GlobalBool(DeveloperFlag.Name):
 		Fatalf("Developer chains are ephemeral")
