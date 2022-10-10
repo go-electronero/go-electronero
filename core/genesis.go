@@ -247,6 +247,10 @@ func (g *Genesis) configOrDefault(ghash common.Hash) *params.ChainConfig {
 		return params.MainnetChainConfig
 	case ghash == params.TestnetGenesisHash:
 		return params.TestnetChainConfig
+	case ghash == params.MainnetKEKGenesisHash:
+		return params.MainnetKEKChainConfig
+	case ghash == params.TestnetKEKGenesisHash:
+		return params.TestnetKEKChainConfig
 	case ghash == params.MainnetETHGenesisHash:
 		return params.MainnetETHChainConfig
 	case ghash == params.RopstenGenesisHash:
@@ -359,6 +363,32 @@ func GenesisBlockForTesting(db ethdb.Database, addr common.Address, balance *big
 		BaseFee: big.NewInt(params.InitialBaseFee),
 	}
 	return g.MustCommit(db)
+}
+
+// DefaultGenesisBlock returns the Ethereum main net genesis block.
+func DefaultKEKGenesisBlock() *Genesis {
+	return &Genesis{
+		Config:     params.MainnetKEKChainConfig,
+		Nonce:      0x0000000000000000,
+		ExtraData:  hexutil.MustDecode("0x0000000000000000000000000000000000000000000000000000000000000000d7A108189471b7e3f0E66723e89170E3104931250000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"),
+		GasLimit:   300000000,
+		Difficulty: big.NewInt(1),
+		Timestamp:  0,
+		Alloc:      decodePrealloc(mainnetKEKAllocData),
+	}
+}
+
+// DefaultGenesisBlock returns the Ethereum main net genesis block.
+func DefaultKEKTestnetGenesisBlock() *Genesis {
+	return &Genesis{
+		Config:     params.TestnetKEKChainConfig,
+		Nonce:      0x0000000000000000,
+		ExtraData:  hexutil.MustDecode("0x0000000000000000000000000000000000000000000000000000000000000000d7A108189471b7e3f0E66723e89170E3104931250000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"),
+		GasLimit:   300000000,
+		Difficulty: big.NewInt(1),
+		Timestamp:  0,
+		Alloc:      decodePrealloc(testnetKEKAllocData),
+	}
 }
 
 // DefaultGenesisBlock returns the Ethereum main net genesis block.
