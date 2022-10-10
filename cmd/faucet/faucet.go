@@ -899,8 +899,12 @@ func getGenesis(genesisFlag *string, goerliFlag bool, rinkebyFlag bool, kektestF
 	case goerliFlag:
 		return core.DefaultGoerliGenesisBlock(), nil
 	case kektestFlag:
-		return core.DefaultTestnetGenesisBlock(), nil
+		return core.DefaultKEKTestnetGenesisBlock(), nil
 	case kekistanFlag:
+		return core.DefaultKEKGenesisBlock(), nil
+	case bloctestFlag:
+		return core.DefaultTestnetGenesisBlock(), nil
+	case blocnetFlag:
 		return core.DefaultGenesisBlock(), nil
 	case rinkebyFlag:
 		return core.DefaultRinkebyGenesisBlock(), nil
