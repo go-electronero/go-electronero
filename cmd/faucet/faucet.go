@@ -89,6 +89,8 @@ var (
 	goerliFlag  = flag.Bool("goerli", false, "Initializes the faucet with Görli network config")
 	kektestFlag  = flag.Bool("kektest", false, "Initializes the faucet with kektest network config")
 	kekistanFlag  = flag.Bool("kekistan", false, "Initializes the faucet with kekistan network config")
+	bloctestFlag  = flag.Bool("bloctest", false, "Initializes the faucet with bloctest network config")
+	blocnetFlag  = flag.Bool("blocnet", false, "Initializes the faucet with blocnet network config")
 	rinkebyFlag = flag.Bool("rinkeby", false, "Initializes the faucet with Rinkeby network config")
 )
 
@@ -149,7 +151,7 @@ func main() {
 		log.Crit("Failed to render the faucet template", "err", err)
 	}
 	// Load and parse the genesis block requested by the user
-	genesis, err := getGenesis(genesisFlag, *goerliFlag, *rinkebyFlag, *kektestFlag, *kekistanFlag)
+	genesis, err := getGenesis(genesisFlag, *goerliFlag, *rinkebyFlag, *kektestFlag, *kekistanFlag, *bloctestFlag, *blocnetFlag)
 	if err != nil {
 		log.Crit("Failed to parse genesis config", "err", err)
 	}
@@ -888,7 +890,7 @@ func authNoAuth(url string) (string, string, common.Address, error) {
 }
 
 // getGenesis returns a genesis based on input args
-func getGenesis(genesisFlag *string, goerliFlag bool, rinkebyFlag bool, kektestFlag bool, kekistanFlag bool) (*core.Genesis, error) {
+func getGenesis(genesisFlag *string, goerliFlag bool, rinkebyFlag bool, kektestFlag bool, kekistanFlag bool, bloctestFlag bool, blocnetFlag bool) (*core.Genesis, error) {
 	switch {
 	case genesisFlag != nil:
 		var genesis core.Genesis
