@@ -43,8 +43,8 @@ var (
 var TrustedCheckpoints = map[common.Hash]*TrustedCheckpoint{
 	MainnetGenesisHash:    MainnetTrustedCheckpoint,
 	TestnetGenesisHash:    TestnetTrustedCheckpoint,
-	MainnetKEKGenesisHash:    MainnetKEKTrustedCheckpoint,
-	TestnetKEKGenesisHash:    TestnetKEKTrustedCheckpoint,
+	MainnetKEKGenesisHash: MainnetKEKTrustedCheckpoint,
+	TestnetKEKGenesisHash: TestnetKEKTrustedCheckpoint,
 	MainnetETHGenesisHash: MainnetETHTrustedCheckpoint,
 	RopstenGenesisHash:    RopstenTrustedCheckpoint,
 	SepoliaGenesisHash:    SepoliaTrustedCheckpoint,
@@ -57,8 +57,8 @@ var TrustedCheckpoints = map[common.Hash]*TrustedCheckpoint{
 var CheckpointOracles = map[common.Hash]*CheckpointOracleConfig{
 	MainnetGenesisHash:    MainnetCheckpointOracle,
 	TestnetGenesisHash:    TestnetCheckpointOracle,
-	MainnetKEKGenesisHash:    MainnetKEKCheckpointOracle,
-	TestnetKEKGenesisHash:    TestnetKEKCheckpointOracle,
+	MainnetKEKGenesisHash: MainnetKEKCheckpointOracle,
+	TestnetKEKGenesisHash: TestnetKEKCheckpointOracle,
 	MainnetETHGenesisHash: MainnetETHCheckpointOracle,
 	RopstenGenesisHash:    RopstenCheckpointOracle,
 	RinkebyGenesisHash:    RinkebyCheckpointOracle,
@@ -490,8 +490,8 @@ type ChainConfig struct {
 	LondonBlock         *big.Int `json:"londonBlock,omitempty"`         // London switch block (nil = no fork, 0 = already on london)
 	ArrowGlacierBlock   *big.Int `json:"arrowGlacierBlock,omitempty"`   // Eip-4345 (bomb delay) switch block (nil = no fork, 0 = already activated)
 	MergeForkBlock      *big.Int `json:"mergeForkBlock,omitempty"`      // EIP-3675 (TheMerge) switch block (nil = no fork, 0 = already in merge proceedings)
-	BRBlock		    	*big.Int `json:"brBlock,omitempty"`      	    // Block Reward switch block (nil = no fork, 0 = already activated)
-	BRHalving	    	*big.Int `json:"brHalvingBlock,omitempty"`      // Block Reward halving switch block (nil = no fork, 0 = already halved)
+	BRBlock		    *big.Int `json:"brBlock,omitempty"`      	    // Block Reward switch block (nil = no fork, 0 = already activated)
+	BRHalving	    *big.Int `json:"brHalvingBlock,omitempty"`      // Block Reward halving switch block (nil = no fork, 0 = already halved)
 	BRFinalSubsidy	    *big.Int `json:"brFinalSubsidy,omitempty"`      // Block Reward halving switch block (nil = no fork, 0 = already halved)
 
 	// TerminalTotalDifficulty is the amount of total difficulty reached by
