@@ -161,6 +161,14 @@ var (
 		Name:  "kekistan",
 		Usage: "Kekchain proof-of-authority with rebates mainnet",
 	}
+	BlocTestFlag = cli.BoolFlag{
+		Name:  "bloctest",
+		Usage: "BlocTest BlocChain network: pre-configured proof-of-authority test network",
+	}
+	BlocNetFlag = cli.BoolFlag{
+		Name:  "blocnet",
+		Usage: "BlocNet BlocChain Mainet proof-of-authority with rebates mainnet",
+	}
 	RopstenFlag = cli.BoolFlag{
 		Name:  "ropsten",
 		Usage: "Ropsten network: pre-configured proof-of-work test network",
@@ -822,6 +830,12 @@ func MakeDataDir(ctx *cli.Context) string {
 		if ctx.GlobalBool(KekistanFlag.Name) {
 			return filepath.Join(path, "kekistan")
 		}
+		if ctx.GlobalBool(BlocTestFlag.Name) {
+			return filepath.Join(path, "bloctest")
+		}
+		if ctx.GlobalBool(BlocNetFlag.Name) {
+			return filepath.Join(path, "blocnet")
+		}
 		if ctx.GlobalBool(SepoliaFlag.Name) {
 			return filepath.Join(path, "sepolia")
 		}
@@ -880,8 +894,12 @@ func setBootstrapNodes(ctx *cli.Context, cfg *p2p.Config) {
 	case ctx.GlobalBool(GoerliFlag.Name): 
 		urls = params.GoerliBootnodes
 	case ctx.GlobalBool(KekistanFlag.Name): 
-		urls = params.MainnetBootnodes
+		urls = params.MainnetKEKBootnodes
 	case ctx.GlobalBool(KekTestFlag.Name): 
+		urls = params.TestnetKEKBootnodes
+	case ctx.GlobalBool(BlocNetFlag.Name): 
+		urls = params.MainnetBootnodes
+	case ctx.GlobalBool(BlocTestFlag.Name): 
 		urls = params.TestnetBootnodes
 	case cfg.BootstrapNodes != nil:
 		return // already set, don't apply defaults.
@@ -1306,6 +1324,10 @@ func setDataDir(ctx *cli.Context, cfg *node.Config) {
 		cfg.DataDir = filepath.Join(node.DefaultDataDir(), "kektest")
 	case ctx.GlobalBool(KekistanFlag.Name) && cfg.DataDir == node.DefaultDataDir():
 		cfg.DataDir = filepath.Join(node.DefaultDataDir(), "kekistan")
+	case ctx.GlobalBool(BlocTestFlag.Name) && cfg.DataDir == node.DefaultDataDir():
+		cfg.DataDir = filepath.Join(node.DefaultDataDir(), "bloctest")
+	case ctx.GlobalBool(BlocNetFlag.Name) && cfg.DataDir == node.DefaultDataDir():
+		cfg.DataDir = filepath.Join(node.DefaultDataDir(), "blocnet")
 	case ctx.GlobalBool(SepoliaFlag.Name) && cfg.DataDir == node.DefaultDataDir():
 		cfg.DataDir = filepath.Join(node.DefaultDataDir(), "sepolia")
 	}
@@ -1493,7 +1515,7 @@ func CheckExclusive(ctx *cli.Context, args ...interface{}) {
 // SetEthConfig applies eth-related command line flags to the config.
 func SetEthConfig(ctx *cli.Context, stack *node.Node, cfg *ethconfig.Config) {
 	// Avoid conflicting network flags
-	CheckExclusive(ctx, MainnetFlag, DeveloperFlag, RopstenFlag, RinkebyFlag, GoerliFlag, KekTestFlag, KekistanFlag, SepoliaFlag)
+	CheckExclusive(ctx, MainnetFlag, DeveloperFlag, RopstenFlag, RinkebyFlag, GoerliFlag, KekTestFlag, KekistanFlag, BlocTestFlag, BlocNetFlag, SepoliaFlag)
 	CheckExclusive(ctx, LightServeFlag, SyncModeFlag, "light")
 	CheckExclusive(ctx, DeveloperFlag, ExternalSignerFlag) // Can't use both ephemeral unlocked and external signer
 	if ctx.GlobalString(GCModeFlag.Name) == "archive" && ctx.GlobalUint64(TxLookupLimitFlag.Name) != 0 {
@@ -1659,11 +1681,23 @@ func SetEthConfig(ctx *cli.Context, stack *node.Node, cfg *ethconfig.Config) {
 		if !ctx.GlobalIsSet(NetworkIdFlag.Name) {
 			cfg.NetworkId = 1
 		}
-		cfg.Genesis = core.DefaultTestnetGenesisBlock()
-		SetDNSDiscoveryDefaults(cfg, params.TestnetGenesisHash)
+		cfg.Genesis = core.DefaultKEKTestnetGenesisBlock()
+		SetDNSDiscoveryDefaults(cfg, params.TestnetKEKGenesisHash)
 	case ctx.GlobalBool(KekistanFlag.Name):
 		if !ctx.GlobalIsSet(NetworkIdFlag.Name) {
 			cfg.NetworkId = 103090
+		}
+		cfg.Genesis = core.DefaultKEKGenesisBlock()
+		SetDNSDiscoveryDefaults(cfg, params.MainnetKEKGenesisHash)
+	case ctx.GlobalBool(BlocTestFlag.Name):
+		if !ctx.GlobalIsSet(NetworkIdFlag.Name) {
+			cfg.NetworkId = 777
+		}
+		cfg.Genesis = core.DefaultTestnetGenesisBlock()
+		SetDNSDiscoveryDefaults(cfg, params.TestnetGenesisHash)
+	case ctx.GlobalBool(BlocNetFlag.Name):
+		if !ctx.GlobalIsSet(NetworkIdFlag.Name) {
+			cfg.NetworkId = 888
 		}
 		cfg.Genesis = core.DefaultGenesisBlock()
 		SetDNSDiscoveryDefaults(cfg, params.MainnetGenesisHash)
