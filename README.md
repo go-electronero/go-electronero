@@ -8,19 +8,11 @@ Testnet is operational: self initializes add the following flag to geth on start
 ```
 
 ## Installation help frens?
-Check [[install.md]](https://github.com/bloc-chain/go-blocChain-testnet/blob/main/install.md) for interchained notes.
-When Installed, check [startups.md](https://github.com/bloc-chain/go-blocChain-testnet/blob/main/startups.md) 
+Check [[install.md]](https://github.com/bloc-chain/go-blocChain/blob/main/install.md) for interchained notes.
+When Installed, check [startups.md](https://github.com/bloc-chain/go-blocChain/blob/main/startups.md) 
 
 
-Official Golang implementation of the Ethereum protocol.
-
-[![API Reference](
-https://camo.githubusercontent.com/915b7be44ada53c290eb157634330494ebe3e30a/68747470733a2f2f676f646f632e6f72672f6769746875622e636f6d2f676f6c616e672f6764646f3f7374617475732e737667
-)](https://pkg.go.dev/github.com/bloc-chain/go-blocChain-testnet?tab=doc)
-[![Go Report Card](https://goreportcard.com/badge/github.com/bloc-chain/go-blocChain-testnet)](https://goreportcard.com/report/github.com/bloc-chain/go-blocChain-testnet)
-[![Travis](https://travis-ci.com/bloc-chain/go-blocChain-testnet.svg?branch=master)](https://travis-ci.com/bloc-chain/go-blocChain-testnet)
-[![Discord](https://img.shields.io/badge/discord-join%20chat-blue.svg)](https://discord.gg/nthXNEv)
-
+Official Golang implementation of the BlocChain EVM protocol.
 
 ## Building the source
 
@@ -46,7 +38,7 @@ directory.
 
 |    Command    | Description                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          |
 | :-----------: | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-|  **`geth`**   | Our main Ethereum CLI client. It is the entry point into the Ethereum network (main-, test- or private net), capable of running as a full node (default), archive node (retaining all historical state) or a light node (retrieving data live). It can be used by other processes as a gateway into the Ethereum network via JSON RPC endpoints exposed on top of HTTP, WebSocket and/or IPC transports. `geth --help` and the [CLI page](https://geth.ethereum.org/docs/interface/command-line-options) for command line options.          |
+|  **`geth`**   | Our main BlocChain EVM CLI client. It is the entry point into the Ethereum network (main-, test- or private net), capable of running as a full node (default), archive node (retaining all historical state) or a light node (retrieving data live). It can be used by other processes as a gateway into the Ethereum network via JSON RPC endpoints exposed on top of HTTP, WebSocket and/or IPC transports. `geth --help` and the [CLI page](https://geth.ethereum.org/docs/interface/command-line-options) for command line options.          |
 |   `clef`    | Stand-alone signing tool, which can be used as a backend signer for `geth`.  |
 |   `devp2p`    | Utilities to interact with nodes on the networking layer, without running a full blockchain. |
 |   `abigen`    | Source code generator to convert Ethereum contract definitions into easy to use, compile-time type-safe Go packages. It operates on plain [Ethereum contract ABIs](https://docs.soliditylang.org/en/develop/abi-spec.html) with expanded functionality if the contract bytecode is also available. However, it also accepts Solidity source files, making development much more streamlined. Please see our [Native DApps](https://geth.ethereum.org/docs/dapp/native-bindings) page for details. |
