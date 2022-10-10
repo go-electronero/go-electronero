@@ -63,6 +63,23 @@ func GoerliGenesis() string {
 }
 
 // TestnetGenesis returns the JSON spec to use for the Kektest test network
+func TestnetKEKGenesis() string {
+	enc, err := json.Marshal(core.DefaultKEKTestnetGenesisBlock())
+	if err != nil {
+		panic(err)
+	}
+	return string(enc)
+}
+// MainnetGenesis returns the JSON spec to use for the Kekchain test network
+func MainnetKEKGenesis() string {
+	enc, err := json.Marshal(core.DefaultKEKGenesisBlock())
+	if err != nil {
+		panic(err)
+	}
+	return string(enc)
+}
+
+// TestnetGenesis returns the JSON spec to use for the Kektest test network
 func TestnetGenesis() string {
 	enc, err := json.Marshal(core.DefaultTestnetGenesisBlock())
 	if err != nil {
