@@ -154,8 +154,12 @@ func KnownDNSNetwork(genesis common.Hash, protocol string) string {
 	var net string
 	switch genesis {
 	case MainnetGenesisHash:
-		net = "kekistan"
+		net = "blocnet"
 	case TestnetGenesisHash:
+		net = "bloctest"
+	case MainnetKEKGenesisHash:
+		net = "kekistan"
+	case TestnetKEKGenesisHash:
 		net = "kektest"
 	case MainnetETHGenesisHash:
 		net = "ethereum"
@@ -168,5 +172,5 @@ func KnownDNSNetwork(genesis common.Hash, protocol string) string {
 	default:
 		return ""
 	}
-	return dnsPrefix + protocol + "." + net + ".interchained.org"
+	return dnsPrefix + protocol + "." + net + ".blocChain.app"
 }
