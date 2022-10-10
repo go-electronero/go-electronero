@@ -57,8 +57,8 @@ var TrustedCheckpoints = map[common.Hash]*TrustedCheckpoint{
 var CheckpointOracles = map[common.Hash]*CheckpointOracleConfig{
 	MainnetGenesisHash:    MainnetCheckpointOracle,
 	TestnetGenesisHash:    TestnetCheckpointOracle,
-	MainnetEKGenesisHash:    MainnetKEKCheckpointOracle,
-	TestnetEKGenesisHash:    TestnetKEKCheckpointOracle,
+	MainnetKEKGenesisHash:    MainnetKEKCheckpointOracle,
+	TestnetKEKGenesisHash:    TestnetKEKCheckpointOracle,
 	MainnetETHGenesisHash: MainnetETHCheckpointOracle,
 	RopstenGenesisHash:    RopstenCheckpointOracle,
 	RinkebyGenesisHash:    RinkebyCheckpointOracle,
