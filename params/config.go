@@ -29,6 +29,8 @@ import (
 var (
 	MainnetGenesisHash    = common.HexToHash("0x3ee766abd8a19fc6fff8d267e9a4cf77a1f73a9a3fb96029b8026da6db8cafd6")
 	TestnetGenesisHash    = common.HexToHash("0x0146c570e9f4559cfbbc7bf93de7149338cd2d505139af96c8f47c3bfa5da0c9")
+	MainnetKEKGenesisHash = common.HexToHash("0x3ee766abd8a19fc6fff8d267e9a4cf77a1f73a9a3fb96029b8026da6db8cafd6")
+	TestnetKEKGenesisHash = common.HexToHash("0x0146c570e9f4559cfbbc7bf93de7149338cd2d505139af96c8f47c3bfa5da0c9")
 	MainnetETHGenesisHash = common.HexToHash("0xd4e56740f876aef8c010b86a40d5f56745a118d0906a34e69aec8c0db1cb8fa3")
 	RopstenGenesisHash    = common.HexToHash("0x41941023680923e0fe4d74a34bdac8141f2540e3ae90623718e47d66d1ca4a2d")
 	SepoliaGenesisHash    = common.HexToHash("0x25a5cc106eea7138acab33231d7160d69cb777ee0c2c553fcddf5138993e6dd9")
@@ -40,7 +42,9 @@ var (
 // the chain it belongs to.
 var TrustedCheckpoints = map[common.Hash]*TrustedCheckpoint{
 	MainnetGenesisHash:    MainnetTrustedCheckpoint,
-	TestnetGenesisHash:    MainnetTrustedCheckpoint,
+	TestnetGenesisHash:    TestnetTrustedCheckpoint,
+	MainnetKEKGenesisHash:    MainnetKEKTrustedCheckpoint,
+	TestnetKEKGenesisHash:    TestnetKEKTrustedCheckpoint,
 	MainnetETHGenesisHash: MainnetETHTrustedCheckpoint,
 	RopstenGenesisHash:    RopstenTrustedCheckpoint,
 	SepoliaGenesisHash:    SepoliaTrustedCheckpoint,
@@ -53,6 +57,8 @@ var TrustedCheckpoints = map[common.Hash]*TrustedCheckpoint{
 var CheckpointOracles = map[common.Hash]*CheckpointOracleConfig{
 	MainnetGenesisHash:    MainnetCheckpointOracle,
 	TestnetGenesisHash:    TestnetCheckpointOracle,
+	MainnetEKGenesisHash:    MainnetKEKCheckpointOracle,
+	TestnetEKGenesisHash:    TestnetKEKCheckpointOracle,
 	MainnetETHGenesisHash: MainnetETHCheckpointOracle,
 	RopstenGenesisHash:    RopstenCheckpointOracle,
 	RinkebyGenesisHash:    RinkebyCheckpointOracle,
@@ -104,7 +110,7 @@ var (
 
 	// MainnetChainConfig is the chain parameters to run a node on the main network.	
 	MainnetChainConfig = &ChainConfig{
-		ChainID:             big.NewInt(420420),
+		ChainID:             big.NewInt(777),
 		HomesteadBlock:      big.NewInt(0),
 		DAOForkBlock:        nil,
 		DAOForkSupport:      false,
@@ -119,9 +125,6 @@ var (
 		MuirGlacierBlock:    big.NewInt(0),
 		BerlinBlock:         big.NewInt(0),
 		LondonBlock:         big.NewInt(0),
-		BRBlock:             big.NewInt(0),
-		BRHalving:           big.NewInt(1598400),
-		BRFinalSubsidy:      big.NewInt(3153600),
 		Clique: &CliqueConfig{
 			Period: 10,
 			Epoch:  30000,
@@ -132,17 +135,11 @@ var (
 	MainnetTrustedCheckpoint = &TrustedCheckpoint{}
 
 	// MainnetCheckpointOracle contains a set of configs for the main network oracle.
-	MainnetCheckpointOracle = &CheckpointOracleConfig{
-		Address: common.HexToAddress("0x682566e965b47B0dDc8317b6a60E66b8D85B76aD"),
-		Signers: []common.Address{
-			common.HexToAddress("0xd7A108189471b7e3f0E66723e89170E310493125"), // Interchained
-		},
-		Threshold: 1,
-	}
+	MainnetCheckpointOracle = &CheckpointOracleConfig{}
 	
 	// TestnetChainConfig is the chain parameters to run a node on the main network.
 	TestnetChainConfig = &ChainConfig{
-		ChainID:             big.NewInt(420666),
+		ChainID:             big.NewInt(69690),
 		HomesteadBlock:      big.NewInt(0),
 		DAOForkBlock:        nil,
 		DAOForkSupport:      false,
@@ -167,7 +164,74 @@ var (
 	TestnetTrustedCheckpoint = &TrustedCheckpoint{}
 
 	// TestnetCheckpointOracle contains a set of configs for the main network oracle.
-	TestnetCheckpointOracle = &CheckpointOracleConfig{
+	TestnetCheckpointOracle = &CheckpointOracleConfig{}
+
+	// MainnetKEKChainConfig is the chain parameters to run a node on the main network.	
+	MainnetKEKChainConfig = &ChainConfig{
+		ChainID:             big.NewInt(420420),
+		HomesteadBlock:      big.NewInt(0),
+		DAOForkBlock:        nil,
+		DAOForkSupport:      false,
+		EIP150Block:         big.NewInt(0),
+		EIP150Hash:          common.HexToHash("0x0000000000000000000000000000000000000000000000000000000000000000"),
+		EIP155Block:         big.NewInt(0),
+		EIP158Block:         big.NewInt(0),
+		ByzantiumBlock:      big.NewInt(0),
+		ConstantinopleBlock: big.NewInt(0),
+		PetersburgBlock:     big.NewInt(0),
+		IstanbulBlock:       big.NewInt(0),
+		MuirGlacierBlock:    big.NewInt(0),
+		BerlinBlock:         big.NewInt(0),
+		LondonBlock:         big.NewInt(0),
+		BRBlock:             big.NewInt(0),
+		BRHalving:           big.NewInt(1598400),
+		BRFinalSubsidy:      big.NewInt(3153600),
+		Clique: &CliqueConfig{
+			Period: 10,
+			Epoch:  30000,
+		},
+	}
+	
+	// MainnetKEKTrustedCheckpoint contains the light client trusted checkpoint for the main network.
+	MainnetKEKTrustedCheckpoint = &TrustedCheckpoint{}
+
+	// MainnetCheckpointOracle contains a set of configs for the main network oracle.
+	MainnetKEKCheckpointOracle = &CheckpointOracleConfig{
+		Address: common.HexToAddress("0x682566e965b47B0dDc8317b6a60E66b8D85B76aD"),
+		Signers: []common.Address{
+			common.HexToAddress("0xd7A108189471b7e3f0E66723e89170E310493125"), // Interchained
+		},
+		Threshold: 1,
+	}
+	
+	// TestnetKEKChainConfig is the chain parameters to run a node on the main network.
+	TestnetKEKChainConfig = &ChainConfig{
+		ChainID:             big.NewInt(420666),
+		HomesteadBlock:      big.NewInt(0),
+		DAOForkBlock:        nil,
+		DAOForkSupport:      false,
+		EIP150Block:         big.NewInt(0),
+		EIP150Hash:          common.HexToHash("0x0000000000000000000000000000000000000000000000000000000000000000"),
+		EIP155Block:         big.NewInt(0),
+		EIP158Block:         big.NewInt(0),
+		ByzantiumBlock:      big.NewInt(0),
+		ConstantinopleBlock: big.NewInt(0),
+		PetersburgBlock:     big.NewInt(0),
+		IstanbulBlock:       big.NewInt(0),
+		MuirGlacierBlock:    big.NewInt(0),
+		BerlinBlock:         big.NewInt(0),
+		LondonBlock:         big.NewInt(0),
+		Clique: &CliqueConfig{
+			Period: 10,
+			Epoch:  30000,
+		},
+	}
+	
+	// TestnetKEKTrustedCheckpoint contains the light client trusted checkpoint for the main network.
+	TestnetKEKTrustedCheckpoint = &TrustedCheckpoint{}
+
+	// TestnetKEKCheckpointOracle contains a set of configs for the main network oracle.
+	TestnetKEKCheckpointOracle = &CheckpointOracleConfig{
 		Address: common.HexToAddress("0xABA76a543ea8849adf3185dfa7AfB8627A264476"),
 		Signers: []common.Address{
 			common.HexToAddress("0xd7A108189471b7e3f0E66723e89170E310493125"), // Interchained
