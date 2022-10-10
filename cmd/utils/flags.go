@@ -1691,13 +1691,13 @@ func SetEthConfig(ctx *cli.Context, stack *node.Node, cfg *ethconfig.Config) {
 		SetDNSDiscoveryDefaults(cfg, params.MainnetKEKGenesisHash)
 	case ctx.GlobalBool(BlocTestFlag.Name):
 		if !ctx.GlobalIsSet(NetworkIdFlag.Name) {
-			cfg.NetworkId = 777
+			cfg.NetworkId = 6969
 		}
 		cfg.Genesis = core.DefaultTestnetGenesisBlock()
 		SetDNSDiscoveryDefaults(cfg, params.TestnetGenesisHash)
 	case ctx.GlobalBool(BlocNetFlag.Name):
 		if !ctx.GlobalIsSet(NetworkIdFlag.Name) {
-			cfg.NetworkId = 888
+			cfg.NetworkId = 777
 		}
 		cfg.Genesis = core.DefaultGenesisBlock()
 		SetDNSDiscoveryDefaults(cfg, params.MainnetGenesisHash)
