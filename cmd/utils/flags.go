@@ -143,7 +143,7 @@ var (
 	}
 	MainnetFlag = cli.BoolFlag{
 		Name:  "mainnet",
-		Usage: "Kekchain proof-of-authority with rebates mainnet",
+		Usage: "BlocNet proof-of-authority mainnet",
 	}
 	GoerliFlag = cli.BoolFlag{
 		Name:  "goerli",
@@ -167,7 +167,7 @@ var (
 	}
 	BlocNetFlag = cli.BoolFlag{
 		Name:  "blocnet",
-		Usage: "BlocNet BlocChain Mainet proof-of-authority with rebates mainnet",
+		Usage: "BlocNet BlocChain Mainet proof-of-authority mainnet",
 	}
 	RopstenFlag = cli.BoolFlag{
 		Name:  "ropsten",
