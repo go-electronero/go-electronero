@@ -67,6 +67,8 @@ var (
 					utils.GoerliFlag,
 					utils.KekTestFlag,
 					utils.KekistanFlag,
+					utils.BlocTestFlag,
+					utils.BlocNetFlag,
 					utils.CacheTrieJournalFlag,
 					utils.BloomFilterSizeFlag,
 				},
@@ -100,6 +102,8 @@ the trie clean cache with default directory will be deleted.
 					utils.GoerliFlag,
 					utils.KekTestFlag,
 					utils.KekistanFlag,
+					utils.BlocTestFlag,
+					utils.BlocNetFlag,
 				},
 				Description: `
 geth snapshot verify-state <state-root>
@@ -123,6 +127,8 @@ In other words, this command does the snapshot to trie conversion.
 					utils.GoerliFlag,
 					utils.KekTestFlag,
 					utils.KekistanFlag,
+					utils.BlocTestFlag,
+					utils.BlocNetFlag,
 				},
 				Description: `
 geth snapshot traverse-state <state-root>
@@ -148,6 +154,8 @@ It's also usable without snapshot enabled.
 					utils.GoerliFlag,
 					utils.KekTestFlag,
 					utils.KekistanFlag,
+					utils.BlocTestFlag,
+					utils.BlocNetFlag,
 				},
 				Description: `
 geth snapshot traverse-rawstate <state-root>
@@ -174,6 +182,8 @@ It's also usable without snapshot enabled.
 					utils.GoerliFlag,
 					utils.KekTestFlag,
 					utils.KekistanFlag,
+					utils.BlocTestFlag,
+					utils.BlocNetFlag,
 					utils.ExcludeCodeFlag,
 					utils.ExcludeStorageFlag,
 					utils.StartKeyFlag,
