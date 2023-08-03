@@ -126,8 +126,8 @@ var (
 		BerlinBlock:         big.NewInt(0),
 		LondonBlock:         big.NewInt(0),
 		BRBlock:             big.NewInt(0),
-		BRHalving:           big.NewInt(10),
-		BRFinalSubsidy:      big.NewInt(20),
+		BRHalving:           big.NewInt(5000000),
+		BRFinalSubsidy:      big.NewInt(10000000),
 		Clique: &CliqueConfig{
 			Period: 6,
 			Epoch:  30000,
