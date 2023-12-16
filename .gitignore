@@ -11,6 +11,9 @@ bin/
 bin2
 /bin2
 /tmp
+/wallets
+wallets/*
+wallets
 */**/*un~
 */**/*.test
 *un~
