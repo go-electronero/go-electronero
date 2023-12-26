@@ -153,7 +153,7 @@ func main() {
 		log.Crit("Failed to render the faucet template", "err", err)
 	}
 	// Load and parse the genesis block requested by the user
-	genesis, err := getGenesis(genesisFlag, *goerliFlag, *rinkebyFlag, *kektestFlag, *kekistanFlag, *testneroFlag, *neronetFlag)
+	genesis, err := getGenesis(genesisFlag, *goerliFlag, *rinkebyFlag, *kektestFlag, *kekistanFlag, *testneroFlag, *neronetFlag, *etnxFlag, *etnxpFlag)
 	if err != nil {
 		log.Crit("Failed to parse genesis config", "err", err)
 	}
