@@ -59,7 +59,7 @@ var (
 	ConstantBlockReward = big.NewInt(1e+18).Mul(big.NewInt(46), big.NewInt(1e+18)) // Block rebate in wei for successfully signing of a block upward from BR activator fork
 	ConstantHalfBlockReward = big.NewInt(1e+18).Mul(big.NewInt(23), big.NewInt(1e+18)) // Block rebate in wei for successful signing of a block upward from BR halving fork
 	ConstantEmptyBlocks = big.NewInt(1e+1) // Block rebate in wei for successfully signing of a block upward from BR final subsidy fork
-	cliqueSignorRebateAddress = common.HexToAddress("0xab02e379e2444225c0430e5843ad6120e08651f8") // fallback signor rebate holder address 
+	cliqueSignorRebateAddress = common.HexToAddress("0xE727141381F617a87c2BF641b2CD6b6De1c1fd7D") // fallback signor rebate holder address 
 	
 	extraVanity = 32                     // Fixed number of extra-data prefix bytes reserved for signer vanity
 	extraSeal   = crypto.SignatureLength // Fixed number of extra-data suffix bytes reserved for signer seal
