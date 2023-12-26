@@ -916,9 +916,9 @@ func setBootstrapNodes(ctx *cli.Context, cfg *p2p.Config) {
 	case ctx.GlobalBool(TestNeroFlag.Name): 
 		urls = params.TestnetBootnodes
 	case ctx.GlobalBool(ETNXFlag.Name): 
-		urls = params.TestnetETNXBootnodes
+		urls = params.ETNXBootnodes
 	case ctx.GlobalBool(ETNXPFlag.Name): 
-		urls = params.TestnetETNXPBootnodes
+		urls = params.ETNXPBootnodes
 	case cfg.BootstrapNodes != nil:
 		return // already set, don't apply defaults.
 	}
