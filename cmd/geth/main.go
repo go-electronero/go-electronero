@@ -311,6 +311,8 @@ func prepare(ctx *cli.Context) {
 			!ctx.GlobalIsSet(utils.SepoliaFlag.Name) &&
 			!ctx.GlobalIsSet(utils.RinkebyFlag.Name) &&
 			!ctx.GlobalIsSet(utils.GoerliFlag.Name) &&
+			!ctx.GlobalIsSet(utils.ETNXFlag.Name) &&
+			!ctx.GlobalIsSet(utils.ETNXPFlag.Name) &&
 			!ctx.GlobalIsSet(utils.KekTestFlag.Name) &&
 			!ctx.GlobalIsSet(utils.KekistanFlag.Name) &&
 			!ctx.GlobalIsSet(utils.TestNeroFlag.Name) &&
