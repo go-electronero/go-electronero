@@ -90,6 +90,7 @@ var (
 	kektestFlag  = flag.Bool("kektest", false, "Initializes the faucet with kektest network config")
 	kekistanFlag  = flag.Bool("kekistan", false, "Initializes the faucet with kekistan network config")
 	testneroFlag  = flag.Bool("testnero", false, "Initializes the faucet with GoElectronero testnero network config")
+	ltnxFlag  = flag.Bool("ltnx", false, "Initializes the faucet with GoLitenero testnero network config")
 	etnxFlag  = flag.Bool("etnx", false, "Initializes the faucet with GoElectronero network config")
 	etnxpFlag  = flag.Bool("etnxp", false, "Initializes the faucet with GoElectronero Pulse network config")
 	neronetFlag  = flag.Bool("neronet", false, "Initializes the faucet with GoElectronero neronet network config")
@@ -153,7 +154,7 @@ func main() {
 		log.Crit("Failed to render the faucet template", "err", err)
 	}
 	// Load and parse the genesis block requested by the user
-	genesis, err := getGenesis(genesisFlag, *goerliFlag, *rinkebyFlag, *kektestFlag, *kekistanFlag, *testneroFlag, *neronetFlag, *etnxFlag, *etnxpFlag)
+	genesis, err := getGenesis(genesisFlag, *goerliFlag, *rinkebyFlag, *kektestFlag, *kekistanFlag, *testneroFlag, *neronetFlag, *etnxFlag, *etnxpFlag, *ltnxFlag)
 	if err != nil {
 		log.Crit("Failed to parse genesis config", "err", err)
 	}
