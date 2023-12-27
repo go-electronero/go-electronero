@@ -299,7 +299,7 @@ func prepare(ctx *cli.Context) {
 		
 	case ctx.GlobalIsSet(utils.ETNXPFlag.Name):
 		log.Info("Starting Geth on Go Electronero Pulse mainnet...")
-	
+    
 	case ctx.GlobalIsSet(utils.LTNXFlag.Name):
 		log.Info("Starting Geth on Go Litenero mainnet...")
 		
