@@ -146,6 +146,7 @@ var (
 		utils.SepoliaFlag,
 		utils.RinkebyFlag,
 		utils.GoerliFlag,
+		utils.LTNXFlag,
 		utils.ETNXFlag,
 		utils.ETNXPFlag,
 		utils.KekTestFlag,
