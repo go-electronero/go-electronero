@@ -169,6 +169,10 @@ var (
 		Name:  "etnx",
 		Usage: "Go Electronero proof-of-authority with rebates mainnet",
 	}
+	LTNXFlag = cli.BoolFlag{
+		Name:  "ltnx",
+		Usage: "Go Litenero proof-of-authority with rebates mainnet",
+	}
 	TestNeroFlag = cli.BoolFlag{
 		Name:  "testnero",
 		Usage: "TestNero GoElectronero network: pre-configured proof-of-authority test network",
@@ -838,6 +842,9 @@ func MakeDataDir(ctx *cli.Context) string {
 		if ctx.GlobalBool(ETNXPFlag.Name) {
 			return filepath.Join(path, "etnxp")
 		}
+		if ctx.GlobalBool(LTNXFlag.Name) {
+			return filepath.Join(path, "ltnx")
+		}
 		if ctx.GlobalBool(KekTestFlag.Name) {
 			return filepath.Join(path, "kektest")
 		}
@@ -919,6 +926,8 @@ func setBootstrapNodes(ctx *cli.Context, cfg *p2p.Config) {
 		urls = params.ETNXBootnodes
 	case ctx.GlobalBool(ETNXPFlag.Name): 
 		urls = params.ETNXPBootnodes
+	case ctx.GlobalBool(LTNXFlag.Name): 
+		urls = params.LTNXBootnodes
 	case cfg.BootstrapNodes != nil:
 		return // already set, don't apply defaults.
 	}
@@ -1350,6 +1359,8 @@ func setDataDir(ctx *cli.Context, cfg *node.Config) {
 		cfg.DataDir = filepath.Join(node.DefaultDataDir(), "etnx")
 	case ctx.GlobalBool(ETNXPFlag.Name) && cfg.DataDir == node.DefaultDataDir():
 		cfg.DataDir = filepath.Join(node.DefaultDataDir(), "etnxp")
+	case ctx.GlobalBool(LTNXFlag.Name) && cfg.DataDir == node.DefaultDataDir():
+		cfg.DataDir = filepath.Join(node.DefaultDataDir(), "ltnx")
 	case ctx.GlobalBool(SepoliaFlag.Name) && cfg.DataDir == node.DefaultDataDir():
 		cfg.DataDir = filepath.Join(node.DefaultDataDir(), "sepolia")
 	}
@@ -1537,7 +1548,7 @@ func CheckExclusive(ctx *cli.Context, args ...interface{}) {
 // SetEthConfig applies eth-related command line flags to the config.
 func SetEthConfig(ctx *cli.Context, stack *node.Node, cfg *ethconfig.Config) {
 	// Avoid conflicting network flags
-	CheckExclusive(ctx, MainnetFlag, DeveloperFlag, RopstenFlag, RinkebyFlag, GoerliFlag, KekTestFlag, KekistanFlag, TestNeroFlag, NeroNetFlag, ETNXFlag, ETNXPFlag, SepoliaFlag)
+	CheckExclusive(ctx, MainnetFlag, DeveloperFlag, RopstenFlag, RinkebyFlag, GoerliFlag, KekTestFlag, KekistanFlag, TestNeroFlag, NeroNetFlag, ETNXFlag, ETNXPFlag, LTNXFlag, SepoliaFlag)
 	CheckExclusive(ctx, LightServeFlag, SyncModeFlag, "light")
 	CheckExclusive(ctx, DeveloperFlag, ExternalSignerFlag) // Can't use both ephemeral unlocked and external signer
 	if ctx.GlobalString(GCModeFlag.Name) == "archive" && ctx.GlobalUint64(TxLookupLimitFlag.Name) != 0 {
@@ -1997,6 +2008,8 @@ func MakeGenesis(ctx *cli.Context) *core.Genesis {
 		genesis = core.DefaultETNXGenesisBlock()
 	case ctx.GlobalBool(ETNXPFlag.Name):
 		genesis = core.DefaultETNXPGenesisBlock()
+	case ctx.GlobalBool(LTNXFlag.Name):
+		genesis = core.DefaultLTNXGenesisBlock()
 	case ctx.GlobalBool(DeveloperFlag.Name):
 		Fatalf("Developer chains are ephemeral")
 	}
