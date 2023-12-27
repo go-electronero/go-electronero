@@ -90,6 +90,8 @@ var (
 	kektestFlag  = flag.Bool("kektest", false, "Initializes the faucet with kektest network config")
 	kekistanFlag  = flag.Bool("kekistan", false, "Initializes the faucet with kekistan network config")
 	testneroFlag  = flag.Bool("testnero", false, "Initializes the faucet with GoElectronero testnero network config")
+	etnxFlag  = flag.Bool("etnx", false, "Initializes the faucet with GoElectronero network config")
+	etnxpFlag  = flag.Bool("etnxp", false, "Initializes the faucet with GoElectronero Pulse network config")
 	neronetFlag  = flag.Bool("neronet", false, "Initializes the faucet with GoElectronero neronet network config")
 	rinkebyFlag = flag.Bool("rinkeby", false, "Initializes the faucet with Rinkeby network config")
 )
@@ -151,7 +153,7 @@ func main() {
 		log.Crit("Failed to render the faucet template", "err", err)
 	}
 	// Load and parse the genesis block requested by the user
-	genesis, err := getGenesis(genesisFlag, *goerliFlag, *rinkebyFlag, *kektestFlag, *kekistanFlag, *testneroFlag, *neronetFlag)
+	genesis, err := getGenesis(genesisFlag, *goerliFlag, *rinkebyFlag, *kektestFlag, *kekistanFlag, *testneroFlag, *neronetFlag, *etnxFlag, *etnxpFlag)
 	if err != nil {
 		log.Crit("Failed to parse genesis config", "err", err)
 	}
@@ -890,7 +892,7 @@ func authNoAuth(url string) (string, string, common.Address, error) {
 }
 
 // getGenesis returns a genesis based on input args
-func getGenesis(genesisFlag *string, goerliFlag bool, rinkebyFlag bool, kektestFlag bool, kekistanFlag bool, testneroFlag bool, neronetFlag bool) (*core.Genesis, error) {
+func getGenesis(genesisFlag *string, goerliFlag bool, rinkebyFlag bool, kektestFlag bool, kekistanFlag bool, testneroFlag bool, neronetFlag bool, etnxFlag bool, etnxpFlag bool) (*core.Genesis, error) {
 	switch {
 	case genesisFlag != nil:
 		var genesis core.Genesis
@@ -906,6 +908,10 @@ func getGenesis(genesisFlag *string, goerliFlag bool, rinkebyFlag bool, kektestF
 		return core.DefaultTestnetGenesisBlock(), nil
 	case neronetFlag:
 		return core.DefaultGenesisBlock(), nil
+	case etnxFlag:
+		return core.DefaultETNXGenesisBlock(), nil
+	case etnxpFlag:
+		return core.DefaultETNXPGenesisBlock(), nil
 	case rinkebyFlag:
 		return core.DefaultRinkebyGenesisBlock(), nil
 	default:
