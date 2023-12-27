@@ -28,8 +28,9 @@ import (
 // Genesis hashes to enforce below configs on.
 var (
 	MainnetGenesisHash    = common.HexToHash("0x3730094d7c8a4fe8207238f3764d6d254e3db4c03745cc10dd6640a9eb590c21")
-	MainnetETNXGenesisHash    = common.HexToHash("0x3730094d7c8a4fe8207238f3764d6d254e3db4c03745cc10dd6640a9eb590c21")
-	MainnetETNXPGenesisHash    = common.HexToHash("0x3730094d7c8a4fe8207238f3764d6d254e3db4c03745cc10dd6640a9eb590c21")
+	MainnetETNXGenesisHash    = common.HexToHash("0x8d01a6dbf7fbfd3c0b356affe631dab6bab7e58468c60b4a90e2cfe72717bd50")
+	MainnetETNXPGenesisHash    = common.HexToHash("0x94dac5ae22c2fb64ac5df302b2e5e63b1bdb3d15d3c27157c5d510398940c263")
+	MainnetLTNXGenesisHash    = common.HexToHash("0x94dac5ae22c2fb64ac5df302b2e5e63b1bdb3d15d3c27157c5d510398940c263")
 	TestnetGenesisHash    = common.HexToHash("0xe1d745c75041e01b57655541bcc257536a55abd09190acdd073a703dd0818999")
 	MainnetKEKGenesisHash = common.HexToHash("0x3ee766abd8a19fc6fff8d267e9a4cf77a1f73a9a3fb96029b8026da6db8cafd6")
 	TestnetKEKGenesisHash = common.HexToHash("0x0146c570e9f4559cfbbc7bf93de7149338cd2d505139af96c8f47c3bfa5da0c9")
@@ -45,6 +46,9 @@ var (
 var TrustedCheckpoints = map[common.Hash]*TrustedCheckpoint{
 	MainnetGenesisHash:    MainnetTrustedCheckpoint,
 	TestnetGenesisHash:    TestnetTrustedCheckpoint,
+	MainnetLTNXGenesisHash: MainnetLTNXTrustedCheckpoint,
+	MainnetETNXGenesisHash: MainnetETNXTrustedCheckpoint,
+	MainnetETNXPGenesisHash: MainnetETNXPTrustedCheckpoint,
 	MainnetKEKGenesisHash: MainnetKEKTrustedCheckpoint,
 	TestnetKEKGenesisHash: TestnetKEKTrustedCheckpoint,
 	MainnetETHGenesisHash: MainnetETHTrustedCheckpoint,
@@ -59,6 +63,9 @@ var TrustedCheckpoints = map[common.Hash]*TrustedCheckpoint{
 var CheckpointOracles = map[common.Hash]*CheckpointOracleConfig{
 	MainnetGenesisHash:    MainnetCheckpointOracle,
 	TestnetGenesisHash:    TestnetCheckpointOracle,
+	MainnetLTNXGenesisHash: MainnetLTNXCheckpointOracle,
+	MainnetETNXGenesisHash: MainnetETNXCheckpointOracle,
+	MainnetETNXPGenesisHash: MainnetETNXPCheckpointOracle,
 	MainnetKEKGenesisHash: MainnetKEKCheckpointOracle,
 	TestnetKEKGenesisHash: TestnetKEKCheckpointOracle,
 	MainnetETHGenesisHash: MainnetETHCheckpointOracle,
@@ -135,6 +142,11 @@ var (
 			Epoch:  30000,
 		},
 	}
+	// MainnetTrustedCheckpoint contains the light client trusted checkpoint for the main network.
+	MainnetTrustedCheckpoint = &TrustedCheckpoint{}
+
+	// MainnetCheckpointOracle contains a set of configs for the main network oracle.
+	MainnetCheckpointOracle = &CheckpointOracleConfig{}
 	
 	// MainnetETNXChainConfig is the chain parameters to run a node on the main network.	
 	MainnetETNXChainConfig = &ChainConfig{
@@ -161,6 +173,12 @@ var (
 			Epoch:  30000,
 		},
 	}
+	// MainnetTrustedCheckpoint contains the light client trusted checkpoint for the main network.
+	MainnetETNXTrustedCheckpoint = &TrustedCheckpoint{}
+
+	// MainnetCheckpointOracle contains a set of configs for the main network oracle.
+	MainnetETNXCheckpointOracle = &CheckpointOracleConfig{}
+
 	
 	// MainnetETNXChainConfig is the chain parameters to run a node on the main network.	
 	MainnetETNXPChainConfig = &ChainConfig{
@@ -187,12 +205,44 @@ var (
 			Epoch:  30000,
 		},
 	}
-	
 	// MainnetTrustedCheckpoint contains the light client trusted checkpoint for the main network.
-	MainnetTrustedCheckpoint = &TrustedCheckpoint{}
+	MainnetETNXPTrustedCheckpoint = &TrustedCheckpoint{}
 
 	// MainnetCheckpointOracle contains a set of configs for the main network oracle.
-	MainnetCheckpointOracle = &CheckpointOracleConfig{}
+	MainnetETNXPCheckpointOracle = &CheckpointOracleConfig{}
+	
+	
+	// MainnetLTNXChainConfig is the chain parameters to run a node on the main network.	
+	MainnetLTNXChainConfig = &ChainConfig{
+		ChainID:             big.NewInt(888444),
+		HomesteadBlock:      big.NewInt(0),
+		DAOForkBlock:        nil,
+		DAOForkSupport:      false,
+		EIP150Block:         big.NewInt(0),
+		EIP150Hash:          common.HexToHash("0x0000000000000000000000000000000000000000000000000000000000000000"),
+		EIP155Block:         big.NewInt(0),
+		EIP158Block:         big.NewInt(0),
+		ByzantiumBlock:      big.NewInt(0),
+		ConstantinopleBlock: big.NewInt(0),
+		PetersburgBlock:     big.NewInt(0),
+		IstanbulBlock:       big.NewInt(0),
+		MuirGlacierBlock:    big.NewInt(0),
+		BerlinBlock:         big.NewInt(0),
+		LondonBlock:         big.NewInt(0),
+		BRBlock:             big.NewInt(0),
+		BRHalving:           big.NewInt(2402000),
+		BRFinalSubsidy:      big.NewInt(5004000),
+		Clique: &CliqueConfig{
+			Period: 6,
+			Epoch:  30000,
+		},
+	}
+	// MainnetTrustedCheckpoint contains the light client trusted checkpoint for the main network.
+	MainnetLTNXTrustedCheckpoint = &TrustedCheckpoint{}
+
+	// MainnetLTNXCheckpointOracle contains a set of configs for the main network oracle.
+	MainnetLTNXCheckpointOracle = &CheckpointOracleConfig{}
+	
 	
 	// TestnetChainConfig is the chain parameters to run a node on the main network.
 	TestnetChainConfig = &ChainConfig{

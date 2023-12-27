@@ -1717,6 +1717,12 @@ func SetEthConfig(ctx *cli.Context, stack *node.Node, cfg *ethconfig.Config) {
 		}
 		cfg.Genesis = core.DefaultETNXPGenesisBlock()
 		SetDNSDiscoveryDefaults(cfg, params.MainnetETNXPGenesisHash)
+	case ctx.GlobalBool(LTNXFlag.Name):
+		if !ctx.GlobalIsSet(NetworkIdFlag.Name) {
+			cfg.NetworkId = 888444
+		}
+		cfg.Genesis = core.DefaultLTNXGenesisBlock()
+		SetDNSDiscoveryDefaults(cfg, params.MainnetLTNXGenesisHash)
 	case ctx.GlobalBool(KekistanFlag.Name):
 		if !ctx.GlobalIsSet(NetworkIdFlag.Name) {
 			cfg.NetworkId = 103090

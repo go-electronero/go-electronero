@@ -892,7 +892,7 @@ func authNoAuth(url string) (string, string, common.Address, error) {
 }
 
 // getGenesis returns a genesis based on input args
-func getGenesis(genesisFlag *string, goerliFlag bool, rinkebyFlag bool, kektestFlag bool, kekistanFlag bool, testneroFlag bool, neronetFlag bool, etnxFlag bool, etnxpFlag bool) (*core.Genesis, error) {
+func getGenesis(genesisFlag *string, goerliFlag bool, rinkebyFlag bool, kektestFlag bool, kekistanFlag bool, testneroFlag bool, neronetFlag bool, etnxFlag bool, etnxpFlag bool, ltnxFlag bool) (*core.Genesis, error) {
 	switch {
 	case genesisFlag != nil:
 		var genesis core.Genesis
@@ -912,6 +912,8 @@ func getGenesis(genesisFlag *string, goerliFlag bool, rinkebyFlag bool, kektestF
 		return core.DefaultETNXGenesisBlock(), nil
 	case etnxpFlag:
 		return core.DefaultETNXPGenesisBlock(), nil
+	case ltnxFlag:
+		return core.DefaultLTNXGenesisBlock(), nil
 	case rinkebyFlag:
 		return core.DefaultRinkebyGenesisBlock(), nil
 	default:
