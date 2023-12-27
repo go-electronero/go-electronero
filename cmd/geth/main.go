@@ -146,6 +146,8 @@ var (
 		utils.SepoliaFlag,
 		utils.RinkebyFlag,
 		utils.GoerliFlag,
+		utils.ETNXFlag,
+		utils.ETNXPFlag,
 		utils.KekTestFlag,
 		utils.KekistanFlag,
 		utils.TestNeroFlag,
@@ -292,6 +294,12 @@ func prepare(ctx *cli.Context) {
 	case ctx.GlobalIsSet(utils.KekistanFlag.Name):
 		log.Info("Starting Geth on Kekistan mainnnet...")
 		
+	case ctx.GlobalIsSet(utils.ETNXFlag.Name):
+		log.Info("Starting Geth on Go Electronero mainnet...")
+		
+	case ctx.GlobalIsSet(utils.ETNXPFlag.Name):
+		log.Info("Starting Geth on Go Electronero Pulse mainnet...")
+		
 	case ctx.GlobalIsSet(utils.TestNeroFlag.Name):
 		log.Info("Starting Geth on GoElectronero TestNero testnet...")
 		
@@ -311,6 +319,8 @@ func prepare(ctx *cli.Context) {
 			!ctx.GlobalIsSet(utils.SepoliaFlag.Name) &&
 			!ctx.GlobalIsSet(utils.RinkebyFlag.Name) &&
 			!ctx.GlobalIsSet(utils.GoerliFlag.Name) &&
+			!ctx.GlobalIsSet(utils.ETNXFlag.Name) &&
+			!ctx.GlobalIsSet(utils.ETNXPFlag.Name) &&
 			!ctx.GlobalIsSet(utils.KekTestFlag.Name) &&
 			!ctx.GlobalIsSet(utils.KekistanFlag.Name) &&
 			!ctx.GlobalIsSet(utils.TestNeroFlag.Name) &&

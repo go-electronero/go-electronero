@@ -100,7 +100,7 @@ var (
 	chainIdFlag = cli.Int64Flag{
 		Name:  "chainid",
 		Value: params.MainnetChainConfig.ChainID.Int64(),
-		Usage: "Chain id to use for signing (888888=mainnet, 777=testnet, 420420=kekistan, 42069=kektest, 3=Ropsten, 4=Rinkeby, 5=Goerli)",
+		Usage: "Chain id to use for signing (888888=mainnet, 777=testnet, 444888=etnxp, 1444=etnx, 3=Ropsten, 4=Rinkeby, 5=Goerli)",
 	}
 	rpcPortFlag = cli.IntFlag{
 		Name:  "http.port",

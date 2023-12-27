@@ -27,7 +27,9 @@ import (
 
 // Genesis hashes to enforce below configs on.
 var (
-	MainnetGenesisHash    = common.HexToHash("0x077e1d3c6d2944e3cf7aa45ac0c761e3ad88451b8e30db0c9cfe22b1fc1ea8d9")
+	MainnetGenesisHash    = common.HexToHash("0x3730094d7c8a4fe8207238f3764d6d254e3db4c03745cc10dd6640a9eb590c21")
+	MainnetETNXGenesisHash    = common.HexToHash("0x3730094d7c8a4fe8207238f3764d6d254e3db4c03745cc10dd6640a9eb590c21")
+	MainnetETNXPGenesisHash    = common.HexToHash("0x3730094d7c8a4fe8207238f3764d6d254e3db4c03745cc10dd6640a9eb590c21")
 	TestnetGenesisHash    = common.HexToHash("0xe1d745c75041e01b57655541bcc257536a55abd09190acdd073a703dd0818999")
 	MainnetKEKGenesisHash = common.HexToHash("0x3ee766abd8a19fc6fff8d267e9a4cf77a1f73a9a3fb96029b8026da6db8cafd6")
 	TestnetKEKGenesisHash = common.HexToHash("0x0146c570e9f4559cfbbc7bf93de7149338cd2d505139af96c8f47c3bfa5da0c9")
@@ -110,7 +112,7 @@ var (
 
 	// MainnetChainConfig is the chain parameters to run a node on the main network.	
 	MainnetChainConfig = &ChainConfig{
-		ChainID:             big.NewInt(888888),
+		ChainID:             big.NewInt(103090),
 		HomesteadBlock:      big.NewInt(0),
 		DAOForkBlock:        nil,
 		DAOForkSupport:      false,
@@ -126,8 +128,60 @@ var (
 		BerlinBlock:         big.NewInt(0),
 		LondonBlock:         big.NewInt(0),
 		BRBlock:             big.NewInt(0),
-		BRHalving:           big.NewInt(5000000),
-		BRFinalSubsidy:      big.NewInt(10000000),
+		BRHalving:           big.NewInt(2592000),
+		BRFinalSubsidy:      big.NewInt(5184000),
+		Clique: &CliqueConfig{
+			Period: 6,
+			Epoch:  30000,
+		},
+	}
+	
+	// MainnetETNXChainConfig is the chain parameters to run a node on the main network.	
+	MainnetETNXChainConfig = &ChainConfig{
+		ChainID:             big.NewInt(1444),
+		HomesteadBlock:      big.NewInt(0),
+		DAOForkBlock:        nil,
+		DAOForkSupport:      false,
+		EIP150Block:         big.NewInt(0),
+		EIP150Hash:          common.HexToHash("0x0000000000000000000000000000000000000000000000000000000000000000"),
+		EIP155Block:         big.NewInt(0),
+		EIP158Block:         big.NewInt(0),
+		ByzantiumBlock:      big.NewInt(0),
+		ConstantinopleBlock: big.NewInt(0),
+		PetersburgBlock:     big.NewInt(0),
+		IstanbulBlock:       big.NewInt(0),
+		MuirGlacierBlock:    big.NewInt(0),
+		BerlinBlock:         big.NewInt(0),
+		LondonBlock:         big.NewInt(0),
+		BRBlock:             big.NewInt(0),
+		BRHalving:           big.NewInt(2602000),
+		BRFinalSubsidy:      big.NewInt(5204000),
+		Clique: &CliqueConfig{
+			Period: 6,
+			Epoch:  30000,
+		},
+	}
+	
+	// MainnetETNXChainConfig is the chain parameters to run a node on the main network.	
+	MainnetETNXPChainConfig = &ChainConfig{
+		ChainID:             big.NewInt(444888),
+		HomesteadBlock:      big.NewInt(0),
+		DAOForkBlock:        nil,
+		DAOForkSupport:      false,
+		EIP150Block:         big.NewInt(0),
+		EIP150Hash:          common.HexToHash("0x0000000000000000000000000000000000000000000000000000000000000000"),
+		EIP155Block:         big.NewInt(0),
+		EIP158Block:         big.NewInt(0),
+		ByzantiumBlock:      big.NewInt(0),
+		ConstantinopleBlock: big.NewInt(0),
+		PetersburgBlock:     big.NewInt(0),
+		IstanbulBlock:       big.NewInt(0),
+		MuirGlacierBlock:    big.NewInt(0),
+		BerlinBlock:         big.NewInt(0),
+		LondonBlock:         big.NewInt(0),
+		BRBlock:             big.NewInt(0),
+		BRHalving:           big.NewInt(2302000),
+		BRFinalSubsidy:      big.NewInt(5104000),
 		Clique: &CliqueConfig{
 			Period: 6,
 			Epoch:  30000,
