@@ -243,6 +243,8 @@ func ethFilter(args []string) (nodeFilter, error) {
 		filter = forkid.NewStaticFilter(params.MainnetETNXChainConfig, params.MainnetETNXGenesisHash)
 	case "etnxp":
 		filter = forkid.NewStaticFilter(params.MainnetETNXPChainConfig, params.MainnetETNXPGenesisHash)
+	case "ltnx":
+		filter = forkid.NewStaticFilter(params.MainnetLTNXChainConfig, params.MainnetLTNXGenesisHash)
 	case "neronet":
 		filter = forkid.NewStaticFilter(params.MainnetChainConfig, params.MainnetGenesisHash)
 	case "ropsten":

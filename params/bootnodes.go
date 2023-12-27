@@ -206,6 +206,8 @@ func KnownDNSNetwork(genesis common.Hash, protocol string) string {
 		net = "etnx"
 	case MainnetETNXPGenesisHash:
 		net = "etnxp"
+	case MainnetLTNXGenesisHash:
+		net = "ltnx"
 	case RopstenGenesisHash:
 		net = "ropsten"
 	case RinkebyGenesisHash:

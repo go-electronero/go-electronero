@@ -430,6 +430,19 @@ func DefaultETNXGenesisBlock() *Genesis {
 	}
 }
 
+// DefaultLTNXGenesisBlock returns the Ethereum main net genesis block.
+func DefaultLTNXGenesisBlock() *Genesis {
+	return &Genesis{
+		Config:     params.MainnetLTNXChainConfig,
+		Nonce:      0x0000000000000000,
+		ExtraData:  hexutil.MustDecode("0x0000000000000000000000000000000000000000000000000000000000000000AB02E379E2444225C0430e5843Ad6120e08651f80000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"),
+		GasLimit:   300000000,
+		Difficulty: big.NewInt(1),
+		Timestamp:  0,
+		Alloc:      decodePrealloc(mainnetLTNXAllocData),
+	}
+}
+
 // DefaultGenesisBlock returns the test net genesis block.
 func DefaultTestnetGenesisBlock() *Genesis {
 	return &Genesis{
